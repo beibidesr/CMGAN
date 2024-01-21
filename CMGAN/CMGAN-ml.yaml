@@ -1,0 +1,48 @@
+# dataset config
+field_separator: "\t"
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+RATING_FIELD: rating
+HEAD_ENTITY_ID_FIELD: head_id
+TAIL_ENTITY_ID_FIELD: tail_id
+RELATION_ID_FIELD: relation_id
+ENTITY_ID_FIELD: entity_id
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+load_col:
+    inter: [user_id, item_id, rating]
+    kg: [head_id, relation_id, tail_id]
+    link: [item_id, entity_id]
+
+# data filtering for interactions
+val_interval:
+    rating: "[3,inf)"
+unused_col:
+    inter: [rating]
+
+user_inter_num_interval: "[10,inf)"
+item_inter_num_interval: "[10,inf)"
+
+# data preprocessing for knowledge graph triples
+kg_reverse_r: True
+entity_kg_num_interval: "[5,inf)"
+relation_kg_num_interval: "[5,inf)"
+
+# training and evaluation
+epochs: 300
+train_batch_size: 4096    #4096
+eval_batch_size: 40960000    #对么？
+valid_metric: MRR@10
+train_neg_sample_args:
+    distribution: uniform
+    sample_num: 5
+    dynamic: False
+
+# model
+embedding_size: 64              # (int) The embedding size of users, items and entities.
+kg_embedding_size: 64           # (int) The embedding size of relations in knowledge graph.
+layers: [64,64]                 # (list of int) The hidden size in GNN layers.
+mess_dropout: 0.5              # (float) The message dropout rate in GNN layer.  0.1  后续可以改成0.5试试
+reg_weight: 1e-5                # (float) The L2 regularization weight.
+aggregator_type: 'graphsage'           # (str) The aggregator type used in GNN. Range in ['gcn', 'graphsage', 'bi'].
