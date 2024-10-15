@@ -14,7 +14,7 @@ from recbole.model.abstract_recommender import KnowledgeRecommender
 from recbole.model.init import xavier_normal_initialization
 from recbole.model.loss import BPRLoss, EmbLoss
 from recbole.utils import InputType
-
+import pdb
 
 class Aggregator(nn.Module):
     """ GNN Aggregator layer
@@ -96,7 +96,7 @@ class CMGAN(KnowledgeRecommender):
         self.A_in_1 = self.A_in
         self.A_in_2 = self.A_in
 
-       
+        pdb.set_trace()
         affine = True
         self.projection_head = torch.nn.ModuleList()
         inner_size = self.layers[-1] * 3
@@ -121,7 +121,7 @@ class CMGAN(KnowledgeRecommender):
         self.ce_loss = nn.CrossEntropyLoss() 
         self.restore_user_e = None
         self.restore_entity_e = None
-
+        
         # parameters initialization
         self.apply(xavier_normal_initialization)
         self.other_parameter_name = ['restore_user_e', 'restore_entity_e']
