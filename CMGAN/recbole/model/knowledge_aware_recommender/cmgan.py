@@ -69,7 +69,7 @@ class CMGAN(KnowledgeRecommender):
     input_type = InputType.PAIRWISE
 
     def __init__(self, config, dataset):
-        super(CMGAT, self).__init__(config, dataset)
+        super(CMGAN, self).__init__(config, dataset)
 
         # load dataset info
         self.ckg = dataset.ckg_graph(form='dgl', value_field='relation_id')
